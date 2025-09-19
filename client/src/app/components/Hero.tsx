@@ -152,7 +152,7 @@ const Hero = () => {
         Avani <span className="xl:hidden">Rai</span>
       </h1>
       <div
-        className={`${oldNewsPaper.className} absolute top-[70%] z-20 flex flex-col items-center gap-4 text-[0.7rem] xl:top-24 xl:right-6 xl:text-[0.9rem] 2xl:text-base`}
+        className={`${oldNewsPaper.className} absolute top-[70%] z-20 flex w-full flex-col items-center gap-4 text-[0.7rem] xl:top-24 xl:right-6 xl:w-auto xl:text-[0.9rem] 2xl:text-base`}
       >
         <div
           className={`flex w-full justify-center gap-2 text-black uppercase`}
