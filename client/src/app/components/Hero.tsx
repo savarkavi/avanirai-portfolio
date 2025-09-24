@@ -1,19 +1,26 @@
 "use client";
 
 import { gralice, oldNewsPaper } from "@/fonts/fonts";
-import { heroImages } from "@/lib/constants";
+import { urlFor } from "@/sanity/lib/image";
+import { FeaturedProject, FETCH_FEATURED_PROJECTSResult } from "@/sanity/types";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
+import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, Observer);
 
-const Hero = () => {
+const Hero = ({
+  featuredProjects,
+}: {
+  featuredProjects: FETCH_FEATURED_PROJECTSResult;
+}) => {
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
-  const [activeTitle, setActiveTitle] = useState(heroImages[0]?.title || "");
+  const [activeIdx, setActiveIdx] = useState(0);
 
   useGSAP(
     () => {
@@ -25,7 +32,7 @@ const Hero = () => {
       const firstImage = images[0];
       if (!firstImage) return;
 
-      const numImagesInSet = heroImages.length;
+      const numImagesInSet = featuredProjects.length;
       const imageWidth = firstImage.offsetWidth;
       const gap = 16;
       const totalItemWidth = imageWidth + gap;
@@ -120,7 +127,7 @@ const Hero = () => {
                 ((unwrappedClosestIndex % numImagesInSet) + numImagesInSet) %
                 numImagesInSet;
 
-              setActiveTitle(heroImages[wrappedIndex].title);
+              setActiveIdx(wrappedIndex);
             },
           });
         },
@@ -160,7 +167,7 @@ const Hero = () => {
           <div className="flex flex-col gap-2">
             <h2>In Focus:</h2>
             <p className="w-fit bg-black p-1 leading-none text-white">
-              {activeTitle}
+              {featuredProjects[activeIdx].projectName}
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
@@ -168,50 +175,80 @@ const Hero = () => {
             <p className="w-fit leading-none">
               Featured in{" "}
               <span className="inline-block bg-black p-1 text-white">
-                Editorial
+                {featuredProjects[activeIdx].category}
               </span>
             </p>
           </div>
         </div>
         <p>
-          See on <span className="underline">Instagram</span>
+          See on{" "}
+          <Link
+            href={featuredProjects[activeIdx].instagramLink as Url}
+            className="underline"
+          >
+            Instagram
+          </Link>
         </p>
       </div>
       <div
         ref={imageContainerRef}
         className="absolute top-[45%] flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
       >
-        {heroImages.map((item, i) => (
-          <Image
-            key={`first-${i}`}
-            src={item.src}
-            alt={item.title}
-            width={300}
-            height={300}
-            className="h-[300px] w-[250px] shrink-0 object-cover"
-            priority={i < 3}
-          />
-        ))}
-        {heroImages.map((item, i) => (
-          <Image
-            key={`second-${i}`}
-            src={item.src}
-            alt={item.title}
-            width={300}
-            height={300}
-            className="h-[300px] w-[250px] shrink-0 object-cover"
-          />
-        ))}
-        {heroImages.map((item, i) => (
-          <Image
-            key={`third-${i}`}
-            src={item.src}
-            alt={item.title}
-            width={300}
-            height={300}
-            className="h-[300px] w-[250px] shrink-0 object-cover"
-          />
-        ))}
+        <>
+          {featuredProjects.map((item, i) => {
+            const imageUrl = item.coverImage
+              ? urlFor(item.coverImage).url()
+              : "";
+
+            return (
+              <Image
+                key={`first-${i}`}
+                src={imageUrl}
+                alt="avani rai photography"
+                width={300}
+                height={300}
+                className="h-[300px] w-[250px] shrink-0 object-cover"
+                priority={i < 3}
+              />
+            );
+          })}
+        </>
+        <>
+          {featuredProjects.map((item, i) => {
+            const imageUrl = item.coverImage
+              ? urlFor(item.coverImage).url()
+              : "";
+
+            return (
+              <Image
+                key={`second-${i}`}
+                src={imageUrl}
+                alt="avani rai photography"
+                width={300}
+                height={300}
+                className="h-[300px] w-[250px] shrink-0 object-cover"
+              />
+            );
+          })}
+        </>
+        <>
+          {featuredProjects.map((item, i) => {
+            const imageUrl = item.coverImage
+              ? urlFor(item.coverImage).url()
+              : "";
+
+            return (
+              <Image
+                key={`third-${i}`}
+                src={imageUrl}
+                alt="avani rai photography"
+                width={300}
+                height={300}
+                className="h-[300px] w-[250px] shrink-0 object-cover"
+              />
+            );
+          })}
+        </>
       </div>
       <div className="plus-center fixed top-[45%] left-1/2 z-20 -translate-1/2 mix-blend-difference xl:top-1/2">
         <div className="absolute top-0 left-0 h-6 w-[1.5px] bg-white" />

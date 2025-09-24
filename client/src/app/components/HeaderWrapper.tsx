@@ -9,7 +9,8 @@ export default function HeaderWrapper() {
     pathname.startsWith("/editorial") ||
     pathname.startsWith("/films") ||
     pathname.startsWith("/advertisment") ||
-    pathname.startsWith("/personal")
+    pathname.startsWith("/personal") ||
+    pathname.startsWith("/studio/")
   )
     return null;
   return <Header />;
