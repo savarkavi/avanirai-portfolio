@@ -201,15 +201,16 @@ const Hero = ({
               : "";
 
             return (
-              <Image
-                key={`first-${i}`}
-                src={imageUrl}
-                alt="avani rai photography"
-                width={300}
-                height={300}
-                className="h-[300px] w-[250px] shrink-0 object-cover"
-                priority={i < 3}
-              />
+              <Link href={`/works/${item._id}`} key={`first-${i}`}>
+                <Image
+                  src={imageUrl}
+                  alt="avani rai photography"
+                  width={300}
+                  height={300}
+                  className="h-[300px] w-[250px] shrink-0 object-cover"
+                  priority={i < 3}
+                />
+              </Link>
             );
           })}
         </>
@@ -220,14 +221,15 @@ const Hero = ({
               : "";
 
             return (
-              <Image
-                key={`second-${i}`}
-                src={imageUrl}
-                alt="avani rai photography"
-                width={300}
-                height={300}
-                className="h-[300px] w-[250px] shrink-0 object-cover"
-              />
+              <Link href={`/works/${item._id}`} key={`second-${i}`}>
+                <Image
+                  src={imageUrl}
+                  alt="avani rai photography"
+                  width={300}
+                  height={300}
+                  className="h-[300px] w-[250px] shrink-0 object-cover"
+                />
+              </Link>
             );
           })}
         </>
@@ -238,14 +240,15 @@ const Hero = ({
               : "";
 
             return (
-              <Image
-                key={`third-${i}`}
-                src={imageUrl}
-                alt="avani rai photography"
-                width={300}
-                height={300}
-                className="h-[300px] w-[250px] shrink-0 object-cover"
-              />
+              <Link href={`/works/${item._id}`} key={`third-${i}`}>
+                <Image
+                  src={imageUrl}
+                  alt="avani rai photography"
+                  width={300}
+                  height={300}
+                  className="h-[300px] w-[250px] shrink-0 object-cover"
+                />
+              </Link>
             );
           })}
         </>
