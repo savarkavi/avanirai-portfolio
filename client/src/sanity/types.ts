@@ -171,8 +171,9 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FETCH_FEATURED_PROJECTS
-// Query: *[_type == "featuredProject"] {                category,                 coverImage {                  asset->                },                 date,                 instagramLink,                 projectName,                _createdAt              } | order(_createdAt)
+// Query: *[_type == "featuredProject"] {                _id,                category,                 coverImage {                  asset->                },                 date,                 instagramLink,                 projectName,                _createdAt              } | order(_createdAt)
 export type FETCH_FEATURED_PROJECTSResult = Array<{
+  _id: string;
   category: "advertising" | "editorial" | "films" | "personal" | null;
   coverImage: {
     asset: {
@@ -208,6 +209,6 @@ export type FETCH_FEATURED_PROJECTSResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "featuredProject"] {\n                category, \n                coverImage {\n                  asset->\n                }, \n                date, \n                instagramLink, \n                projectName,\n                _createdAt\n              } | order(_createdAt)\n': FETCH_FEATURED_PROJECTSResult;
+    '*[_type == "featuredProject"] {\n                _id,\n                category, \n                coverImage {\n                  asset->\n                }, \n                date, \n                instagramLink, \n                projectName,\n                _createdAt\n              } | order(_createdAt)\n': FETCH_FEATURED_PROJECTSResult;
   }
 }
