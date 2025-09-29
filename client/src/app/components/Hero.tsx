@@ -2,7 +2,7 @@
 
 import { gralice, oldNewsPaper } from "@/fonts/fonts";
 import { urlFor } from "@/sanity/lib/image";
-import { FeaturedProject, FETCH_FEATURED_PROJECTSResult } from "@/sanity/types";
+import { FETCH_FEATURED_PROJECTSResult } from "@/sanity/types";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { Observer } from "gsap/all";
@@ -22,6 +22,9 @@ const Hero = ({
 
   const [activeIdx, setActiveIdx] = useState(0);
 
+  const projects = featuredProjects?.projects;
+  if (!projects) return null;
+
   useGSAP(
     () => {
       if (!imageContainerRef.current) return;
@@ -32,7 +35,7 @@ const Hero = ({
       const firstImage = images[0];
       if (!firstImage) return;
 
-      const numImagesInSet = featuredProjects.length;
+      const numImagesInSet = projects.length;
       const imageWidth = firstImage.offsetWidth;
       const gap = 16;
       const totalItemWidth = imageWidth + gap;
@@ -167,15 +170,15 @@ const Hero = ({
           <div className="flex flex-col gap-2">
             <h2>In Focus:</h2>
             <p className="w-fit bg-black p-1 leading-none text-white">
-              {featuredProjects[activeIdx].projectName}
+              {projects[activeIdx].projectName}
             </p>
           </div>
           <div className="flex flex-col items-end gap-2">
-            <p>22.05.25</p>
+            <p>{projects[activeIdx].date}</p>
             <p className="w-fit leading-none">
               Featured in{" "}
               <span className="inline-block bg-black p-1 text-white">
-                {featuredProjects[activeIdx].category}
+                {projects[activeIdx].category}
               </span>
             </p>
           </div>
@@ -183,7 +186,7 @@ const Hero = ({
         <p>
           See on{" "}
           <Link
-            href={featuredProjects[activeIdx].instagramLink as Url}
+            href={projects[activeIdx].instagramLink as Url}
             className="underline"
           >
             Instagram
@@ -195,7 +198,7 @@ const Hero = ({
         className="absolute top-[45%] flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
       >
         <>
-          {featuredProjects.map((item, i) => {
+          {projects.map((item, i) => {
             const imageUrl = item.coverImage
               ? urlFor(item.coverImage).url()
               : "";
@@ -215,7 +218,7 @@ const Hero = ({
           })}
         </>
         <>
-          {featuredProjects.map((item, i) => {
+          {projects.map((item, i) => {
             const imageUrl = item.coverImage
               ? urlFor(item.coverImage).url()
               : "";
@@ -234,7 +237,7 @@ const Hero = ({
           })}
         </>
         <>
-          {featuredProjects.map((item, i) => {
+          {projects.map((item, i) => {
             const imageUrl = item.coverImage
               ? urlFor(item.coverImage).url()
               : "";

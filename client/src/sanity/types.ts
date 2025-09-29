@@ -13,14 +13,30 @@
  */
 
 // Source: schema.json
-export type FeaturedProject = {
+export type FeaturedProjects = {
   _id: string;
-  _type: "featuredProject";
+  _type: "featuredProjects";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  projects?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "project";
+  }>;
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   projectName?: string;
-  category?: "films" | "editorial" | "advertising" | "personal";
+  category?: "Films" | "Editorial" | "Advertising" | "Personal";
   date?: string;
   coverImage?: {
     asset?: {
@@ -35,6 +51,32 @@ export type FeaturedProject = {
     _type: "image";
   };
   instagramLink?: string;
+  gallery?: Array<
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+        };
+        media?: unknown;
+        _type: "file";
+        _key: string;
+      }
+  >;
 };
 
 export type SanityImagePaletteSwatch = {
@@ -156,7 +198,8 @@ export type SanityAssetSourceData = {
 };
 
 export type AllSanitySchemaTypes =
-  | FeaturedProject
+  | FeaturedProjects
+  | Project
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -171,44 +214,33 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FETCH_FEATURED_PROJECTS
-// Query: *[_type == "featuredProject"] {                _id,                category,                 coverImage {                  asset->                },                 date,                 instagramLink,                 projectName,                _createdAt              } | order(_createdAt)
-export type FETCH_FEATURED_PROJECTSResult = Array<{
-  _id: string;
-  category: "advertising" | "editorial" | "films" | "personal" | null;
-  coverImage: {
-    asset: {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
+// Query: *[_type == "featuredProjects"][0] {        projects[]->{          _id,          projectName,          category,          coverImage,          instagramLink,          date        }      }
+export type FETCH_FEATURED_PROJECTSResult = {
+  projects: Array<{
+    _id: string;
+    projectName: string | null;
+    category: "Advertising" | "Editorial" | "Films" | "Personal" | null;
+    coverImage: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
     } | null;
-  } | null;
-  date: string | null;
-  instagramLink: string | null;
-  projectName: string | null;
-  _createdAt: string;
-}>;
+    instagramLink: string | null;
+    date: string | null;
+  }> | null;
+} | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "featuredProject"] {\n                _id,\n                category, \n                coverImage {\n                  asset->\n                }, \n                date, \n                instagramLink, \n                projectName,\n                _createdAt\n              } | order(_createdAt)\n': FETCH_FEATURED_PROJECTSResult;
+    '*[_type == "featuredProjects"][0] {\n        projects[]->{\n          _id,\n          projectName,\n          category,\n          coverImage,\n          instagramLink,\n          date\n        }\n      }\n': FETCH_FEATURED_PROJECTSResult;
   }
 }
