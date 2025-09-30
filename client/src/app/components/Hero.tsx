@@ -195,18 +195,16 @@ const Hero = ({
       </div>
       <div
         ref={imageContainerRef}
-        className="absolute top-[45%] flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
+        className="absolute top-[45%] z-10 flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
       >
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverImage
-              ? urlFor(item.coverImage).url()
-              : "";
+            const imageUrl = item.coverMedia?.asset?.url;
 
             return (
               <Link href={`/works/${item._id}`} key={`first-${i}`}>
                 <Image
-                  src={imageUrl}
+                  src={imageUrl ? imageUrl : ""}
                   alt="avani rai photography"
                   width={300}
                   height={300}
@@ -219,14 +217,12 @@ const Hero = ({
         </>
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverImage
-              ? urlFor(item.coverImage).url()
-              : "";
+            const imageUrl = item.coverMedia?.asset?.url;
 
             return (
               <Link href={`/works/${item._id}`} key={`second-${i}`}>
                 <Image
-                  src={imageUrl}
+                  src={imageUrl ? imageUrl : ""}
                   alt="avani rai photography"
                   width={300}
                   height={300}
@@ -238,14 +234,12 @@ const Hero = ({
         </>
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverImage
-              ? urlFor(item.coverImage).url()
-              : "";
+            const imageUrl = item.coverMedia?.asset?.url;
 
             return (
               <Link href={`/works/${item._id}`} key={`third-${i}`}>
                 <Image
-                  src={imageUrl}
+                  src={imageUrl ? imageUrl : ""}
                   alt="avani rai photography"
                   width={300}
                   height={300}
