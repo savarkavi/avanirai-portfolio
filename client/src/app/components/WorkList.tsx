@@ -1,17 +1,88 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { oldNewsPaper } from "@/fonts/fonts";
 import { workTitles } from "@/lib/constants";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { Observer } from "gsap/all";
+import { FETCH_CATEGORY_PROJECTSResult } from "@/sanity/types";
 
-const ITEM_HEIGHT = 28;
-const VISIBLE_ITEMS = 20;
+gsap.registerPlugin(useGSAP, Observer);
 
-const WorkList = ({ activeIdx }: { activeIdx: number }) => {
+const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
+  const ITEM_HEIGHT = 28;
+  const VISIBLE_ITEMS = data.length;
   const listRef = useRef<HTMLDivElement>(null);
   const blackStripAnim = useRef(null);
+
+  const [activeIdx, setActiveIdx] = useState(1);
+
+  const activeIdxRef = useRef(activeIdx);
+
+  useEffect(() => {
+    activeIdxRef.current = activeIdx;
+  }, [activeIdx]);
+
+  useGSAP(() => {
+    const observer = Observer.create({
+      target: window,
+      type: "wheel,touch",
+      wheelSpeed: -1,
+      onUp: () => {
+        if (activeIdxRef.current >= data.length) return;
+
+        setActiveIdx((prev) => prev + 1);
+        activeIdxRef.current += 1;
+
+        gsap
+          .timeline({ defaults: { duration: 0.3 } })
+          .to(`.title-strip-${activeIdxRef.current}`, { width: "100%" })
+          .to(
+            `.title-container-${activeIdxRef.current}`,
+            { color: "white" },
+            "<",
+          );
+        gsap
+          .timeline()
+          .to(`.title-strip-${activeIdxRef.current - 1}`, { width: 0 })
+          .to(
+            `.title-container-${activeIdxRef.current - 1}`,
+            { color: "black" },
+            "<",
+          );
+
+        console.log(activeIdxRef.current);
+      },
+      onDown: () => {
+        if (activeIdxRef.current <= 1) return;
+
+        activeIdxRef.current -= 1;
+        setActiveIdx((prev) => prev - 1);
+
+        gsap
+          .timeline({ defaults: { duration: 0.3 } })
+          .to(`.title-strip-${activeIdxRef.current}`, { width: "100%" })
+          .to(
+            `.title-container-${activeIdxRef.current}`,
+            { color: "white" },
+            "<",
+          );
+        gsap
+          .timeline()
+          .to(`.title-strip-${activeIdxRef.current + 1}`, { width: 0 })
+          .to(
+            `.title-container-${activeIdxRef.current + 1}`,
+            { color: "black" },
+            "<",
+          );
+      },
+    });
+
+    return () => {
+      observer.kill();
+    };
+  }, []);
 
   useGSAP(() => {
     if (!listRef.current) return;
@@ -32,17 +103,19 @@ const WorkList = ({ activeIdx }: { activeIdx: number }) => {
 
   return (
     <div
-      className={`${oldNewsPaper.className} flex h-screen w-full flex-col justify-center p-6`}
+      className={`${oldNewsPaper.className} flex h-full w-full flex-col justify-center p-6`}
     >
       <div className="h-fit max-h-[560px] w-full overflow-hidden">
         <div ref={listRef} className="h-fit w-full">
-          {workTitles.map((item, i) => (
+          {data.map((item, i) => (
             <div key={i} className="flex w-full items-center justify-between">
               <div
                 className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex gap-8 overflow-hidden`}
               >
-                <p className={`z-10 px-1`}>{item.id}</p>
-                <p className={`z-10 h-[28px] px-1 text-xl`}>{item.title}</p>
+                <p className={`z-10 px-1`}>{i + 1}</p>
+                <p className={`z-10 h-[28px] px-1 text-xl`}>
+                  {item.projectName}
+                </p>
                 <div
                   className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
                 />
@@ -50,7 +123,7 @@ const WorkList = ({ activeIdx }: { activeIdx: number }) => {
               <div
                 className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex items-center gap-8`}
               >
-                <p className={`z-10 px-1`}>{item.totalMedia} files</p>
+                <p className={`z-10 px-1`}>{7} files</p>
                 <p className={`z-10 px-1`}>- {item.date}</p>
                 <div
                   className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
