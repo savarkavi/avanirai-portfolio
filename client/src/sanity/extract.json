@@ -136,19 +136,19 @@
           "of": [
             {
               "type": "string",
-              "value": "Films"
+              "value": "films"
             },
             {
               "type": "string",
-              "value": "Editorial"
+              "value": "editorial"
             },
             {
               "type": "string",
-              "value": "Advertising"
+              "value": "advertising"
             },
             {
               "type": "string",
-              "value": "Personal"
+              "value": "personal"
             }
           ]
         },
@@ -161,7 +161,7 @@
         },
         "optional": true
       },
-      "coverImage": {
+      "coverMedia": {
         "type": "objectAttribute",
         "value": {
           "type": "object",
@@ -192,7 +192,7 @@
                     "optional": true
                   }
                 },
-                "dereferencesTo": "sanity.imageAsset"
+                "dereferencesTo": "sanity.fileAsset"
               },
               "optional": true
             },
@@ -203,27 +203,11 @@
               },
               "optional": true
             },
-            "hotspot": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageHotspot"
-              },
-              "optional": true
-            },
-            "crop": {
-              "type": "objectAttribute",
-              "value": {
-                "type": "inline",
-                "name": "sanity.imageCrop"
-              },
-              "optional": true
-            },
             "_type": {
               "type": "objectAttribute",
               "value": {
                 "type": "string",
-                "value": "image"
+                "value": "file"
               }
             }
           }

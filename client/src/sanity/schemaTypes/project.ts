@@ -15,7 +15,7 @@ export const projectType = defineType({
       name: "category",
       type: "string",
       options: {
-        list: ["Films", "Editorial", "Advertising", "Personal"],
+        list: ["films", "editorial", "advertising", "personal"],
       },
       validation: (rule) => rule.required(),
     }),
@@ -27,13 +27,10 @@ export const projectType = defineType({
     }),
 
     defineField({
-      name: "coverImage",
-      type: "image",
-      description: "The main image shown on the homepage.",
-      options: {
-        hotspot: true,
-      },
-      validation: (rule) => rule.required(),
+      name: "coverMedia",
+      type: "file",
+      description:
+        "The main image/video shown on the homepage or category page",
     }),
 
     defineField({
@@ -66,7 +63,6 @@ export const projectType = defineType({
     select: {
       title: "projectName",
       subtitle: "category",
-      media: "coverImage",
     },
   },
 });
