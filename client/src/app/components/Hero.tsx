@@ -199,54 +199,100 @@ const Hero = ({
       >
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverMedia?.asset?.url;
-
-            return (
-              <Link href={`/works/${item._id}`} key={`first-${i}`}>
-                <Image
-                  src={imageUrl ? imageUrl : ""}
-                  alt="avani rai photography"
-                  width={300}
-                  height={300}
-                  className="h-[300px] w-[250px] shrink-0 object-cover"
-                  priority={i < 3}
-                />
-              </Link>
-            );
+            const mediaUrl = item.coverMedia?.asset?.url;
+            if (item.coverMedia?._type === "image") {
+              return (
+                <Link href={`/works/${item._id}`} key={`first-${i}`}>
+                  <Image
+                    src={mediaUrl ? mediaUrl : ""}
+                    alt="avani rai photography"
+                    width={300}
+                    height={300}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    priority={i < 3}
+                  />
+                </Link>
+              );
+            } else {
+              return (
+                <Link href={`/works/${item._id}`} key={`first-${i}`}>
+                  <video
+                    src={mediaUrl ? mediaUrl : ""}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                </Link>
+              );
+            }
           })}
         </>
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverMedia?.asset?.url;
+            const mediaUrl = item.coverMedia?.asset?.url;
 
-            return (
-              <Link href={`/works/${item._id}`} key={`second-${i}`}>
-                <Image
-                  src={imageUrl ? imageUrl : ""}
-                  alt="avani rai photography"
-                  width={300}
-                  height={300}
-                  className="h-[300px] w-[250px] shrink-0 object-cover"
-                />
-              </Link>
-            );
+            if (item.coverMedia?._type === "image") {
+              return (
+                <Link href={`/works/${item._id}`} key={`second-${i}`}>
+                  <Image
+                    src={mediaUrl ? mediaUrl : ""}
+                    alt="avani rai photography"
+                    width={300}
+                    height={300}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    priority={i < 3}
+                  />
+                </Link>
+              );
+            } else {
+              return (
+                <Link href={`/works/${item._id}`} key={`second-${i}`}>
+                  <video
+                    src={mediaUrl ? mediaUrl : ""}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                </Link>
+              );
+            }
           })}
         </>
         <>
           {projects.map((item, i) => {
-            const imageUrl = item.coverMedia?.asset?.url;
+            const mediaUrl = item.coverMedia?.asset?.url;
 
-            return (
-              <Link href={`/works/${item._id}`} key={`third-${i}`}>
-                <Image
-                  src={imageUrl ? imageUrl : ""}
-                  alt="avani rai photography"
-                  width={300}
-                  height={300}
-                  className="h-[300px] w-[250px] shrink-0 object-cover"
-                />
-              </Link>
-            );
+            if (item.coverMedia?._type === "image") {
+              return (
+                <Link href={`/works/${item._id}`} key={`third-${i}`}>
+                  <Image
+                    src={mediaUrl ? mediaUrl : ""}
+                    alt="avani rai photography"
+                    width={300}
+                    height={300}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    priority={i < 3}
+                  />
+                </Link>
+              );
+            } else {
+              return (
+                <Link href={`/works/${item._id}`} key={`third-${i}`}>
+                  <video
+                    src={mediaUrl ? mediaUrl : ""}
+                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                  />
+                </Link>
+              );
+            }
           })}
         </>
       </div>
