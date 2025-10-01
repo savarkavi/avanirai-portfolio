@@ -38,16 +38,32 @@ export type Project = {
   projectName?: string;
   category?: "films" | "editorial" | "advertising" | "personal";
   date?: string;
-  coverMedia?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    media?: unknown;
-    _type: "file";
-  };
+  coverMedia?: Array<
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+        };
+        media?: unknown;
+        _type: "file";
+        _key: string;
+      }
+  >;
   instagramLink?: string;
   gallery?: Array<
     | {
@@ -212,37 +228,69 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./src/sanity/lib/queries.ts
 // Variable: FETCH_FEATURED_PROJECTS
-// Query: *[_type == "featuredProjects"][0] {        projects[]->{          _id,          projectName,          category,          coverMedia{            ...,            asset->          },          instagramLink,          date        }      }
+// Query: *[_type == "featuredProjects"][0] {        projects[]->{          _id,          projectName,          category,          coverMedia[0] {            ...,            asset->          },          instagramLink,          date        }      }
 export type FETCH_FEATURED_PROJECTSResult = {
   projects: Array<{
     _id: string;
     projectName: string | null;
     category: "advertising" | "editorial" | "films" | "personal" | null;
-    coverMedia: {
-      asset: {
-        _id: string;
-        _type: "sanity.fileAsset";
-        _createdAt: string;
-        _updatedAt: string;
-        _rev: string;
-        originalFilename?: string;
-        label?: string;
-        title?: string;
-        description?: string;
-        altText?: string;
-        sha1hash?: string;
-        extension?: string;
-        mimeType?: string;
-        size?: number;
-        assetId?: string;
-        uploadId?: string;
-        path?: string;
-        url?: string;
-        source?: SanityAssetSourceData;
-      } | null;
-      media?: unknown;
-      _type: "file";
-    } | null;
+    coverMedia:
+      | {
+          asset: {
+            _id: string;
+            _type: "sanity.fileAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            source?: SanityAssetSourceData;
+          } | null;
+          media?: unknown;
+          _type: "file";
+          _key: string;
+        }
+      | {
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+          media?: unknown;
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+      | null;
     instagramLink: string | null;
     date: string | null;
   }> | null;
@@ -258,16 +306,32 @@ export type FETCH_PROJECTResult = {
   projectName?: string;
   category?: "advertising" | "editorial" | "films" | "personal";
   date?: string;
-  coverMedia?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
-    };
-    media?: unknown;
-    _type: "file";
-  };
+  coverMedia?: Array<
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+        };
+        media?: unknown;
+        _type: "file";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
   instagramLink?: string;
   gallery: Array<
     | {
@@ -293,45 +357,77 @@ export type FETCH_PROJECTResult = {
   > | null;
 } | null;
 // Variable: FETCH_CATEGORY_PROJECTS
-// Query: *[_type == "project" && category == $category]{      _id,      projectName,      instagramLink,      date,      coverMedia{        ...,        asset->      },  }
+// Query: *[_type == "project" && category == $category]{      _id,      projectName,      instagramLink,      date,      coverMedia[0] {        ...,        asset->      },  }
 export type FETCH_CATEGORY_PROJECTSResult = Array<{
   _id: string;
   projectName: string | null;
   instagramLink: string | null;
   date: string | null;
-  coverMedia: {
-    asset: {
-      _id: string;
-      _type: "sanity.fileAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      source?: SanityAssetSourceData;
-    } | null;
-    media?: unknown;
-    _type: "file";
-  } | null;
+  coverMedia:
+    | {
+        asset: {
+          _id: string;
+          _type: "sanity.fileAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        _type: "file";
+        _key: string;
+      }
+    | {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        media?: unknown;
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | null;
 }>;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "featuredProjects"][0] {\n        projects[]->{\n          _id,\n          projectName,\n          category,\n          coverMedia{\n            ...,\n            asset->\n          },\n          instagramLink,\n          date\n        }\n      }\n': FETCH_FEATURED_PROJECTSResult;
+    '*[_type == "featuredProjects"][0] {\n        projects[]->{\n          _id,\n          projectName,\n          category,\n          coverMedia[0] {\n            ...,\n            asset->\n          },\n          instagramLink,\n          date\n        }\n      }\n': FETCH_FEATURED_PROJECTSResult;
     '*[_type == "project" && _id == $projectId][0]{\n    ...,\n    gallery[]{\n    _key,\n    _type,\n    alt,\n    asset->{ \n      _id,\n      url,\n      playbackId \n    }\n  }\n  }': FETCH_PROJECTResult;
-    '*[_type == "project" && category == $category]{\n      _id,\n      projectName,\n      instagramLink,\n      date,\n      coverMedia{\n        ...,\n        asset->\n      },\n  }': FETCH_CATEGORY_PROJECTSResult;
+    '*[_type == "project" && category == $category]{\n      _id,\n      projectName,\n      instagramLink,\n      date,\n      coverMedia[0] {\n        ...,\n        asset->\n      },\n  }': FETCH_CATEGORY_PROJECTSResult;
   }
 }

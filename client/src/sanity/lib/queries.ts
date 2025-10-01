@@ -6,7 +6,7 @@ export const FETCH_FEATURED_PROJECTS =
           _id,
           projectName,
           category,
-          coverMedia{
+          coverMedia[0] {
             ...,
             asset->
           },
@@ -38,7 +38,7 @@ export const FETCH_CATEGORY_PROJECTS = defineQuery(
       projectName,
       instagramLink,
       date,
-      coverMedia{
+      coverMedia[0] {
         ...,
         asset->
       },

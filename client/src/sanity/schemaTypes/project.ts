@@ -28,9 +28,28 @@ export const projectType = defineType({
 
     defineField({
       name: "coverMedia",
-      type: "file",
+      type: "array",
       description:
         "The main image/video shown on the homepage or category page",
+      of: [
+        {
+          title: "Image",
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+        },
+        {
+          title: "Video",
+          type: "file",
+          options: {
+            accept: "video/*",
+          },
+        },
+      ],
+
+      validation: (rule) =>
+        rule.max(1).error("You can only have one cover media item."),
     }),
 
     defineField({
