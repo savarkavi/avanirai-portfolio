@@ -7,6 +7,8 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Observer } from "gsap/all";
 import { FETCH_CATEGORY_PROJECTSResult } from "@/sanity/types";
+import Link from "next/link";
+import Image from "next/image";
 
 gsap.registerPlugin(useGSAP, Observer);
 
@@ -82,7 +84,7 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
     return () => {
       observer.kill();
     };
-  }, []);
+  }, [data.length]);
 
   useGSAP(() => {
     if (!listRef.current) return;
@@ -107,31 +109,72 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
     >
       <div className="h-fit max-h-[560px] w-full overflow-hidden">
         <div ref={listRef} className="h-fit w-full">
-          {data.map((item, i) => (
-            <div key={i} className="flex w-full items-center justify-between">
-              <div
-                className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex gap-8 overflow-hidden`}
-              >
-                <p className={`z-10 px-1`}>{i + 1}</p>
-                <p className={`z-10 h-[28px] px-1 text-xl`}>
-                  {item.projectName}
-                </p>
+          {data.map((item, i) => {
+            return (
+              <div key={i} className="flex w-full items-center justify-between">
                 <div
-                  className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
-                />
-              </div>
-              <div
-                className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex items-center gap-8`}
-              >
-                <p className={`z-10 px-1`}>{7} files</p>
-                <p className={`z-10 px-1`}>- {item.date}</p>
+                  className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex gap-4 overflow-hidden`}
+                >
+                  <p className={`z-10 px-1`}>{i + 1}</p>
+                  <p className={`z-10 h-[28px] px-1 text-lg`}>
+                    {item.projectName}
+                  </p>
+                  <div
+                    className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
+                  />
+                </div>
                 <div
-                  className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
-                />
+                  className={`title-container-${i + 1} ${i + 1 === 1 ? "text-white" : "text-black"} relative flex items-center gap-4`}
+                >
+                  <p className={`z-10 px-1`}>{7} files</p>
+                  <p className={`z-10 px-1`}>- {item.date}</p>
+                  <div
+                    className={`title-strip-${i + 1} absolute top-0 left-0 h-full ${i + 1 === 1 ? "w-full" : "w-0"} bg-black`}
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
+      </div>
+      <div className="">
+        {data.map((item, i) => {
+          const isActive = activeIdx === i + 1;
+          const mediaUrl = item.coverMedia?.asset?.url ?? "";
+
+          return (
+            <Link
+              href={`/works/${item._id}`}
+              key={item._id}
+              className={`absolute top-1/2 left-1/2 w-fit -translate-1/2 transition-opacity duration-500 ${
+                isActive ? "opacity-100" : "pointer-events-none opacity-0"
+              }`}
+              aria-hidden={!isActive}
+              tabIndex={isActive ? 0 : -1}
+            >
+              {item.coverMedia?._type === "image" ? (
+                <Image
+                  src={mediaUrl}
+                  alt={item.projectName || "avani rai photography"}
+                  width={500}
+                  height={500}
+                  className="h-[700px] w-auto object-contain"
+                  priority={i < 3}
+                />
+              ) : (
+                <video
+                  src={mediaUrl}
+                  className="h-full w-full object-contain"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  key={mediaUrl + i}
+                />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
