@@ -1,7 +1,6 @@
 "use client";
 
 import { gralice, oldNewsPaper } from "@/fonts/fonts";
-import { urlFor } from "@/sanity/lib/image";
 import { FETCH_FEATURED_PROJECTSResult } from "@/sanity/types";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -155,14 +154,14 @@ const Hero = ({
   );
 
   return (
-    <div className="hero-container relative flex h-[calc(100vh-64px)] flex-col justify-between overflow-hidden [perspective:1000px]">
+    <div className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]">
       <h1
-        className={`${gralice.className} absolute top-20 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-24`}
+        className={`${gralice.className} absolute top-20 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
       >
         Avani <span className="xl:hidden">Rai</span>
       </h1>
       <div
-        className={`${oldNewsPaper.className} absolute top-[70%] z-20 flex w-full flex-col items-center gap-4 text-[0.7rem] xl:top-24 xl:right-6 xl:w-auto xl:text-[0.9rem] 2xl:text-base`}
+        className={`${oldNewsPaper.className} absolute top-[70%] z-20 flex w-full flex-col items-center gap-4 text-[0.7rem] xl:top-20 xl:right-6 xl:w-auto xl:text-[0.9rem] 2xl:text-base`}
       >
         <div
           className={`flex w-full justify-center gap-2 text-black uppercase`}
@@ -208,7 +207,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     priority={i < 3}
                   />
                 </Link>
@@ -218,7 +217,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`first-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     autoPlay
                     loop
                     muted
@@ -241,7 +240,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     priority={i < 3}
                   />
                 </Link>
@@ -251,7 +250,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`second-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     autoPlay
                     loop
                     muted
@@ -274,7 +273,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     priority={i < 3}
                   />
                 </Link>
@@ -284,7 +283,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`third-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[300px] w-[250px] shrink-0 object-cover"
+                    className="h-[350px] w-[300px] shrink-0 object-cover"
                     autoPlay
                     loop
                     muted
