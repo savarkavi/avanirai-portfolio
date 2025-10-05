@@ -156,12 +156,12 @@ const Hero = ({
   return (
     <div className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]">
       <h1
-        className={`${gralice.className} absolute top-20 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
+        className={`${gralice.className} absolute top-28 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
       >
         Avani <span className="xl:hidden">Rai</span>
       </h1>
       <div
-        className={`${oldNewsPaper.className} absolute top-[70%] z-20 flex w-full flex-col items-center gap-4 text-[0.7rem] xl:top-20 xl:right-6 xl:w-auto xl:text-[0.9rem] 2xl:text-base`}
+        className={`${oldNewsPaper.className} absolute top-[72%] z-20 flex w-full flex-col items-center gap-4 px-4 text-[0.7rem] xl:top-26 xl:right-6 xl:w-auto xl:p-0 xl:text-[0.9rem] 2xl:text-base`}
       >
         <div
           className={`flex w-full justify-center gap-2 text-black uppercase`}
@@ -174,27 +174,18 @@ const Hero = ({
           </div>
           <div className="flex flex-col items-end gap-2">
             <p>{projects[activeIdx].date}</p>
-            <p className="w-fit leading-none">
-              Featured in{" "}
-              <span className="inline-block bg-black p-1 text-white">
+            <p className="flex w-fit items-center gap-2 leading-none">
+              Featured in
+              <span className="bg-black p-1 text-white">
                 {projects[activeIdx].category}
               </span>
             </p>
           </div>
         </div>
-        <p>
-          See on{" "}
-          <Link
-            href={projects[activeIdx].instagramLink as Url}
-            className="underline"
-          >
-            Instagram
-          </Link>
-        </p>
       </div>
       <div
         ref={imageContainerRef}
-        className="absolute top-[45%] z-10 flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
+        className="absolute top-[47%] z-10 flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
       >
         <>
           {projects.map((item, i) => {
@@ -207,7 +198,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
                   />
                 </Link>
@@ -217,7 +208,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`first-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     autoPlay
                     loop
                     muted
@@ -240,7 +231,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
                   />
                 </Link>
@@ -250,7 +241,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`second-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     autoPlay
                     loop
                     muted
@@ -273,7 +264,7 @@ const Hero = ({
                     alt="avani rai photography"
                     width={300}
                     height={300}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
                   />
                 </Link>
@@ -283,7 +274,7 @@ const Hero = ({
                 <Link href={`/works/${item._id}`} key={`third-${i}`}>
                   <video
                     src={mediaUrl ? mediaUrl : ""}
-                    className="h-[350px] w-[300px] shrink-0 object-cover"
+                    className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     autoPlay
                     loop
                     muted
@@ -294,6 +285,22 @@ const Hero = ({
             }
           })}
         </>
+      </div>
+      <div
+        className={`${oldNewsPaper.className} absolute top-[82%] left-1/2 flex -translate-1/2 flex-col items-center gap-2 uppercase xl:top-[75%]`}
+      >
+        <p className="hidden xl:block">
+          {activeIdx + 1} / {projects.length}
+        </p>
+        <p className="text-sm">
+          See on{" "}
+          <Link
+            href={projects[activeIdx].instagramLink as Url}
+            className="underline"
+          >
+            Instagram
+          </Link>
+        </p>
       </div>
       <div className="plus-center fixed top-[45%] left-1/2 z-20 -translate-1/2 mix-blend-difference xl:top-1/2">
         <div className="absolute top-0 left-0 h-6 w-[1.5px] bg-white" />
