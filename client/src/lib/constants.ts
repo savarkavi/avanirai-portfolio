@@ -90,3 +90,13 @@ export const workTitles = [
     totalMedia: "05",
   },
 ];
+
+export const avaniProfilePhotos = [
+  { src: "/avani-profile-photo1.jpg" },
+  { src: "/avani-profile-photo2.jpg" },
+  { src: "/avani-profile-photo3.jpg" },
+  { src: "/avani-profile-photo4.jpg" },
+  { src: "/avani-profile-photo5.jpg" },
+  { src: "/avani-profile-photo6.jpg" },
+  { src: "/avani-profile-photo7.jpg" },
+];
