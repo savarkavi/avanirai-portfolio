@@ -183,7 +183,7 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
           <div className="h-fit max-h-[560px] w-full overflow-hidden">
             <div ref={listRef} className="h-fit w-full">
               {data.map((item, i) => {
-                const isActive = activeIdx === i;
+                const isFirst = i === 0;
                 return (
                   <div
                     key={i}
@@ -191,7 +191,7 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
                   >
                     <div
                       className={`title-container-${i} relative flex gap-4 overflow-hidden ${
-                        isActive ? "text-white" : "text-black"
+                        isFirst ? "text-white" : "text-black"
                       }`}
                     >
                       <p className="z-10 px-1">{i + 1}</p>
@@ -200,20 +200,20 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
                       </p>
                       <div
                         className={`title-strip-${i} absolute top-0 left-0 h-full bg-black ${
-                          isActive ? "w-full" : "w-0"
+                          isFirst ? "w-full" : "w-0"
                         }`}
                       />
                     </div>
                     <div
                       className={`title-container-${i} relative flex items-center gap-4 ${
-                        isActive ? "text-white" : "text-black"
+                        isFirst ? "text-white" : "text-black"
                       }`}
                     >
                       <p className="z-10 px-1">7 files</p>
                       <p className="z-10 px-1">- {item.date}</p>
                       <div
                         className={`title-strip-${i} absolute top-0 left-0 h-full bg-black ${
-                          isActive ? "w-full" : "w-0"
+                          isFirst ? "w-full" : "w-0"
                         }`}
                       />
                     </div>
