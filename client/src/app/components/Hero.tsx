@@ -8,15 +8,24 @@ import { Observer } from "gsap/all";
 import { Url } from "next/dist/shared/lib/router/router";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(useGSAP, Observer);
 
+type HeroProps = {
+  featuredProjects: FETCH_FEATURED_PROJECTSResult;
+  isLoaded: boolean;
+  onProgress: (progress: number) => void;
+  onLoaded: () => void;
+};
+
 const Hero = ({
   featuredProjects,
-}: {
-  featuredProjects: FETCH_FEATURED_PROJECTSResult;
-}) => {
+  isLoaded,
+  onProgress,
+  onLoaded,
+}: HeroProps) => {
+  const heroContainerRef = useRef<HTMLDivElement>(null);
   const imageContainerRef = useRef<HTMLDivElement>(null);
 
   const [activeIdx, setActiveIdx] = useState(0);
@@ -24,9 +33,57 @@ const Hero = ({
   const projects = featuredProjects?.projects;
   if (!projects) return null;
 
+  useEffect(() => {
+    if (!heroContainerRef.current) return;
+
+    const mediaElements = Array.from(
+      heroContainerRef.current.querySelectorAll("img, video"),
+    ) as (HTMLImageElement | HTMLVideoElement)[];
+
+    const totalMedia = mediaElements.length;
+
+    if (totalMedia === 0) {
+      onProgress(100);
+      onLoaded();
+      return;
+    }
+
+    let loadedCount = 0;
+
+    const updateProgress = () => {
+      loadedCount++;
+      const progress = (loadedCount / totalMedia) * 100;
+      onProgress(progress);
+
+      if (loadedCount === totalMedia) {
+        setTimeout(onLoaded, 100);
+      }
+    };
+
+    mediaElements.forEach((el) => {
+      if (el.tagName === "IMG") {
+        const img = el as HTMLImageElement;
+        if (img.complete) {
+          updateProgress();
+        } else {
+          img.onload = updateProgress;
+          img.onerror = updateProgress;
+        }
+      } else if (el.tagName === "VIDEO") {
+        const vid = el as HTMLVideoElement;
+        if (vid.readyState >= 4) {
+          updateProgress();
+        } else {
+          vid.oncanplaythrough = updateProgress;
+          vid.onerror = updateProgress;
+        }
+      }
+    });
+  }, [onProgress, onLoaded]);
+
   useGSAP(
     () => {
-      if (!imageContainerRef.current) return;
+      if (!isLoaded || !imageContainerRef.current) return;
       const images = gsap.utils.toArray<HTMLImageElement>(
         imageContainerRef.current.children,
       );
@@ -150,11 +207,14 @@ const Hero = ({
         }
       };
     },
-    { scope: imageContainerRef },
+    { scope: imageContainerRef, dependencies: [isLoaded] },
   );
 
   return (
-    <div className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]">
+    <div
+      ref={heroContainerRef}
+      className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]"
+    >
       <h1
         className={`${gralice.className} absolute top-28 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
       >
