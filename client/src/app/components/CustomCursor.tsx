@@ -16,7 +16,7 @@ export default function CustomCursor() {
 
   return (
     <div
-      className="pointer-events-none fixed z-99 hidden h-3 w-3 rounded-full bg-white mix-blend-difference 2xl:block"
+      className="pointer-events-none fixed z-[999] hidden h-3 w-3 rounded-full bg-white mix-blend-difference 2xl:block"
       style={{
         left: `${position.x}px`,
         top: `${position.y}px`,

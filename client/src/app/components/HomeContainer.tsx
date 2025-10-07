@@ -33,7 +33,7 @@ const HomeContainer = ({
 
   return (
     <div>
-      {!isLoading && <IntroLoading progress={progress} />}
+      {isLoading && <IntroLoading progress={progress} />}
       <div style={{ visibility: isLoading ? "hidden" : "visible" }}>
         <Hero
           featuredProjects={featuredProjects}
