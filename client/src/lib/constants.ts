@@ -100,3 +100,11 @@ export const avaniProfilePhotos = [
   { src: "/avani-profile-photo6.jpg" },
   { src: "/avani-profile-photo7.jpg" },
 ];
+
+export const menuItems = [
+  { name: "films" },
+  { name: "editorial" },
+  { name: "advertising" },
+  { name: "personal" },
+  { name: "about" },
+];
