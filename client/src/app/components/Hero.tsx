@@ -260,6 +260,7 @@ const Hero = ({
                     height={300}
                     className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
+                    loading="eager"
                   />
                 </Link>
               );
@@ -273,6 +274,7 @@ const Hero = ({
                     loop
                     muted
                     playsInline
+                    preload="auto"
                   />
                 </Link>
               );
@@ -293,6 +295,7 @@ const Hero = ({
                     height={300}
                     className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
+                    loading="eager"
                   />
                 </Link>
               );
@@ -306,6 +309,7 @@ const Hero = ({
                     loop
                     muted
                     playsInline
+                    preload="auto"
                   />
                 </Link>
               );
@@ -326,6 +330,7 @@ const Hero = ({
                     height={300}
                     className="h-[300px] w-[250px] shrink-0 object-cover 2xl:h-[350px] 2xl:w-[300px]"
                     priority={i < 3}
+                    loading="eager"
                   />
                 </Link>
               );
@@ -339,6 +344,7 @@ const Hero = ({
                     loop
                     muted
                     playsInline
+                    preload="auto"
                   />
                 </Link>
               );
