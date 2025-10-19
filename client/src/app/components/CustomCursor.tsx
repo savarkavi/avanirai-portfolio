@@ -1,11 +1,21 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const pathname = usePathname();
+
+  const isStudioRoute = pathname.startsWith("/studio");
 
   useEffect(() => {
+    if (isStudioRoute) {
+      document.body.style.cursor = "auto";
+    } else {
+      document.body.style.cursor = "none";
+    }
+
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
     };
@@ -13,6 +23,8 @@ export default function CustomCursor() {
     window.addEventListener("mousemove", updatePosition);
     return () => window.removeEventListener("mousemove", updatePosition);
   }, []);
+
+  if (isStudioRoute) return null;
 
   return (
     <div

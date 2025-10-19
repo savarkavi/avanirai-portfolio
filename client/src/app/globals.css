@@ -26,9 +26,5 @@ body {
 }
 
 .slick-slide > div {
-  margin: 0 10px; /* This adds 10px of margin to the left and right of each slide */
-}
-
-* {
-  cursor: none;
+  margin: 0 10px;
 }
