@@ -102,9 +102,9 @@ export const avaniProfilePhotos = [
 ];
 
 export const menuItems = [
-  { name: "films" },
-  { name: "editorial" },
-  { name: "advertising" },
-  { name: "personal" },
-  { name: "about" },
+  { name: "films", href: "/archive/films" },
+  { name: "editorial", href: "/archive/editorial" },
+  { name: "advertising", href: "/archive/advertising" },
+  { name: "personal", href: "/archive/personal" },
+  { name: "about", href: "/about" },
 ];
