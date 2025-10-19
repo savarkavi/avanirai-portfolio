@@ -26,7 +26,11 @@ export const FETCH_PROJECT = defineQuery(
     asset->{ 
       _id,
       url,
-      playbackId 
+      playbackId,
+      metadata {
+        lqip,
+        dimensions  
+      }    
     }
   }
   }`,

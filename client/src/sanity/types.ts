@@ -296,7 +296,7 @@ export type FETCH_FEATURED_PROJECTSResult = {
   }> | null;
 } | null;
 // Variable: FETCH_PROJECT
-// Query: *[_type == "project" && _id == $projectId][0]{    ...,    gallery[]{    _key,    _type,    alt,    asset->{       _id,      url,      playbackId     }  }  }
+// Query: *[_type == "project" && _id == $projectId][0]{    ...,    gallery[]{    _key,    _type,    alt,    asset->{       _id,      url,      playbackId,      metadata {        lqip,        dimensions        }        }  }  }
 export type FETCH_PROJECTResult = {
   _id: string;
   _type: "project";
@@ -342,6 +342,7 @@ export type FETCH_PROJECTResult = {
           _id: string;
           url: string | null;
           playbackId: null;
+          metadata: null;
         } | null;
       }
     | {
@@ -352,6 +353,10 @@ export type FETCH_PROJECTResult = {
           _id: string;
           url: string | null;
           playbackId: null;
+          metadata: {
+            lqip: string | null;
+            dimensions: SanityImageDimensions | null;
+          } | null;
         } | null;
       }
   > | null;
@@ -427,7 +432,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "featuredProjects"][0] {\n        projects[]->{\n          _id,\n          projectName,\n          category,\n          coverMedia[0] {\n            ...,\n            asset->\n          },\n          instagramLink,\n          date\n        }\n      }\n': FETCH_FEATURED_PROJECTSResult;
-    '*[_type == "project" && _id == $projectId][0]{\n    ...,\n    gallery[]{\n    _key,\n    _type,\n    alt,\n    asset->{ \n      _id,\n      url,\n      playbackId \n    }\n  }\n  }': FETCH_PROJECTResult;
+    '*[_type == "project" && _id == $projectId][0]{\n    ...,\n    gallery[]{\n    _key,\n    _type,\n    alt,\n    asset->{ \n      _id,\n      url,\n      playbackId,\n      metadata {\n        lqip,\n        dimensions  \n      }    \n    }\n  }\n  }': FETCH_PROJECTResult;
     '*[_type == "project" && category == $category]{\n      _id,\n      projectName,\n      instagramLink,\n      date,\n      coverMedia[0] {\n        ...,\n        asset->\n      },\n  }': FETCH_CATEGORY_PROJECTSResult;
   }
 }

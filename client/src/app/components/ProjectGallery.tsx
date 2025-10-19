@@ -59,6 +59,8 @@ const ProjectGallery = ({ projectId, project }: ProjectGalleryProps) => {
         </h1>
       </div>
       {projectGallery.map((item, i) => {
+        const mediaLQIP = item.asset?.metadata?.lqip || undefined;
+
         return (
           <div
             key={i}
@@ -78,12 +80,18 @@ const ProjectGallery = ({ projectId, project }: ProjectGalleryProps) => {
                   <source src={item.asset?.url ? item.asset.url : ""} />
                 </video>
               ) : (
-                <div key={i} className="relative h-full w-full bg-white">
+                <div
+                  key={i}
+                  className="relative flex h-full w-full items-center justify-center bg-white"
+                >
                   <Image
                     src={item ? urlFor(item).url() : ""}
                     alt="avani image"
-                    fill
-                    className="object-contain"
+                    width={item.asset?.metadata?.dimensions?.width}
+                    height={item.asset?.metadata?.dimensions?.height}
+                    className="h-full w-auto object-contain"
+                    placeholder={mediaLQIP ? "blur" : "empty"}
+                    blurDataURL={mediaLQIP}
                   />
                 </div>
               )}
