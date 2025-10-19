@@ -4,6 +4,7 @@ import { gralice } from "@/fonts/fonts";
 import { menuItems } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import Link from "next/link";
 import React from "react";
 
 gsap.registerPlugin(useGSAP);
@@ -57,15 +58,20 @@ const MenuOverlay = ({ isOpen, onOpen }: MenuOverlayProps) => {
   return (
     <div className="menu-overlay invisible fixed top-0 left-0 z-99 flex h-screen w-full flex-col justify-between p-8 font-mono opacity-0 backdrop-blur-3xl">
       <div className="flex w-full items-center justify-between uppercase">
-        <p className={`${gralice.className} text-4xl`}>Avani Rai</p>
+        <p className={`${gralice.className} text-3xl xl:text-4xl`}>Avani Rai</p>
         <p onClick={() => onOpen(false)}>Close</p>
       </div>
       <div
-        className={`${gralice.className} absolute top-1/2 left-1/2 flex -translate-1/2 items-center justify-center text-7xl uppercase`}
+        className={`${gralice.className} absolute top-1/2 left-1/2 flex -translate-1/2 items-center justify-center text-5xl uppercase xl:text-7xl`}
       >
         <div className="flex flex-col items-center gap-8">
           {menuItems.map((item, i) => (
-            <div
+            <Link
+              href={item.href}
+              onClick={() => {
+                onOpen(false);
+                handleMouseLeave(i);
+              }}
               onMouseEnter={() => handleHover(i)}
               onMouseLeave={() => handleMouseLeave(i)}
               key={i}
@@ -77,7 +83,7 @@ const MenuOverlay = ({ isOpen, onOpen }: MenuOverlayProps) => {
               <div
                 className={`menu-line-${i} absolute top-[35%] left-0 h-[3px] w-0 -translate-y-1/2 bg-black`}
               />
-            </div>
+            </Link>
           ))}
         </div>
       </div>
