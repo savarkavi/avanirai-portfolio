@@ -1,7 +1,6 @@
 "use client";
 
 import { gralice } from "@/fonts/fonts";
-import { heroImages } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -48,16 +47,6 @@ const ProjectGallery = ({ projectId, project }: ProjectGalleryProps) => {
 
   return (
     <>
-      <div className="fixed top-0 left-0 z-10 flex w-full items-center justify-between p-8 mix-blend-difference">
-        <Link href="/" className="flex items-center gap-2 text-white">
-          <IoIosArrowBack className="size-5" /> <span>Back Home</span>
-        </Link>
-        <h1
-          className={`${gralice.className} pointer-events-none text-4xl text-white uppercase`}
-        >
-          Avani Rai
-        </h1>
-      </div>
       {projectGallery.map((item, i) => {
         const mediaLQIP = item.asset?.metadata?.lqip || undefined;
 
