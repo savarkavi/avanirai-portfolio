@@ -16,6 +16,7 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
   const activeIdxRef = useRef(activeIdx);
   const listRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -25,6 +26,7 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
 
   useGSAP(
     () => {
+      const SCROLL_COOLDOWN = 300;
       const mm = gsap.matchMedia();
 
       mm.add("(max-width: 768px)", () => {
@@ -37,12 +39,28 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
           tolerance: 100,
           preventDefault: true,
           onUp: () => {
+            if (isScrolling.current) return;
             if (activeIdxRef.current >= data.length - 1) return;
+
+            isScrolling.current = true;
+
             setActiveIdx((prev) => prev + 1);
+
+            setTimeout(() => {
+              isScrolling.current = false;
+            }, SCROLL_COOLDOWN);
           },
           onDown: () => {
+            if (isScrolling.current) return;
             if (activeIdxRef.current <= 0) return;
+
+            isScrolling.current = true;
+
             setActiveIdx((prev) => prev - 1);
+
+            setTimeout(() => {
+              isScrolling.current = false;
+            }, SCROLL_COOLDOWN);
           },
         });
 
@@ -60,7 +78,11 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
           type: "wheel,touch",
           wheelSpeed: -1,
           onUp: () => {
+            if (isScrolling.current) return;
             if (activeIdxRef.current >= data.length - 1) return;
+
+            isScrolling.current = true;
+
             const newIndex = activeIdxRef.current + 1;
             setActiveIdx(newIndex);
 
@@ -81,9 +103,17 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
               color: "black",
               duration: 0.3,
             });
+
+            setTimeout(() => {
+              isScrolling.current = false;
+            }, SCROLL_COOLDOWN);
           },
           onDown: () => {
+            if (isScrolling.current) return;
             if (activeIdxRef.current <= 0) return;
+
+            isScrolling.current = true;
+
             const newIndex = activeIdxRef.current - 1;
             setActiveIdx(newIndex);
 
@@ -104,6 +134,10 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
               color: "black",
               duration: 0.3,
             });
+
+            setTimeout(() => {
+              isScrolling.current = false;
+            }, SCROLL_COOLDOWN);
           },
         });
 
