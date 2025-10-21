@@ -196,7 +196,17 @@ const Hero = ({
         imageContainerRef.current,
         { x: centerPos, opacity: 0, scale: 0.5 },
         { x: initialX, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-      );
+      )
+        .from(
+          [".avani-title-text", ".avani-info-text"],
+          { opacity: 0, x: -200 },
+          "<",
+        )
+        .from(
+          [".rai-title-text", ".project-info-text"],
+          { opacity: 0, x: 200 },
+          "<",
+        );
 
       return () => {
         if (scrollObserver) {
@@ -207,7 +217,7 @@ const Hero = ({
         }
       };
     },
-    { scope: imageContainerRef, dependencies: [isLoaded] },
+    { scope: heroContainerRef, dependencies: [isLoaded] },
   );
 
   return (
@@ -216,12 +226,12 @@ const Hero = ({
       className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]"
     >
       <h1
-        className={`${gralice.className} absolute top-28 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
+        className={`${gralice.className} avani-title-text absolute top-28 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
       >
         Avani <span className="xl:hidden">Rai</span>
       </h1>
       <div
-        className={`${oldNewsPaper.className} absolute top-[72%] z-20 flex w-full flex-col items-center gap-4 px-4 text-[0.7rem] xl:top-26 xl:right-6 xl:w-auto xl:p-0 xl:text-[0.9rem] 2xl:text-base`}
+        className={`${oldNewsPaper.className} project-info-text absolute top-[72%] z-20 flex w-full flex-col items-center gap-4 px-4 text-[0.7rem] xl:top-26 xl:right-6 xl:w-auto xl:p-0 xl:text-[0.9rem] 2xl:text-base`}
       >
         <div
           className={`flex w-full justify-center gap-2 text-black uppercase`}
@@ -353,7 +363,7 @@ const Hero = ({
         </>
       </div>
       <div
-        className={`${oldNewsPaper.className} absolute top-[82%] left-1/2 flex -translate-1/2 flex-col items-center gap-2 uppercase xl:top-[75%]`}
+        className={`${oldNewsPaper.className} instagram-info absolute top-[82%] left-1/2 flex -translate-1/2 flex-col items-center gap-2 uppercase xl:top-[75%]`}
       >
         <p className="hidden xl:block">
           {activeIdx + 1} / {projects.length}
@@ -372,7 +382,7 @@ const Hero = ({
         <div className="absolute top-0 left-0 h-6 w-[1.5px] bg-white" />
         <div className="absolute top-0 left-0 h-6 w-[1.5px] rotate-90 bg-white" />
       </div>
-      <div className="absolute bottom-6 left-1/2 w-full -translate-x-1/2 px-8 sm:w-fit sm:px-0 xl:left-6 xl:translate-0">
+      <div className="avani-info-text absolute bottom-6 left-1/2 w-full -translate-x-1/2 px-8 sm:w-fit sm:px-0 xl:left-6 xl:translate-0">
         <div
           className={`${oldNewsPaper.className} relative px-6 py-2 text-center text-[0.7rem] uppercase before:absolute before:top-0 before:left-0 before:h-4 before:w-4 before:border-t-2 before:border-l-2 before:content-[''] after:absolute after:right-0 after:bottom-0 after:h-4 after:w-4 after:border-r-2 after:border-b-2 after:content-[''] xl:text-left xl:text-base`}
         >
@@ -381,7 +391,7 @@ const Hero = ({
         </div>
       </div>
       <h1
-        className={`${gralice.className} absolute right-8 bottom-0 z-10 hidden text-[16vw] leading-20 uppercase xl:block xl:leading-50 2xl:leading-56`}
+        className={`${gralice.className} rai-title-text absolute right-8 bottom-0 z-10 hidden text-[16vw] leading-20 uppercase xl:block xl:leading-50 2xl:leading-56`}
       >
         Rai
       </h1>
