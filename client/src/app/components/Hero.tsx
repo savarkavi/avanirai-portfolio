@@ -102,7 +102,7 @@ const Hero = ({
       let scrollObserver: Observer | null = null;
       let updateAnimation: (() => void) | null = null;
 
-      gsap.set(images, { force3D: true });
+      gsap.set(images, { force3D: true, filter: "brightness(1)" });
 
       const tl = gsap.timeline({
         onComplete: () => {
@@ -245,7 +245,7 @@ const Hero = ({
       </div>
       <div
         ref={imageContainerRef}
-        className="absolute top-[47%] z-10 flex w-max -translate-y-1/2 items-center gap-4 opacity-0 [transform-style:preserve-3d] xl:top-1/2"
+        className="absolute top-[47%] z-10 flex w-max -translate-y-1/2 items-center gap-4 opacity-0 brightness-100 [transform-style:preserve-3d] xl:top-1/2"
       >
         <>
           {projects.map((item, i) => {
