@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <>
       <div
-        className={`header-container fixed top-0 left-1/2 z-10 flex w-full -translate-x-1/2 justify-center p-4 font-serif text-sm uppercase xl:justify-end`}
+        className={`header-container fixed top-0 left-1/2 z-10 flex w-full -translate-x-1/2 justify-end p-4 font-serif text-sm uppercase`}
       >
         <div
           onClick={() => setIsOpen(true)}

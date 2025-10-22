@@ -16,7 +16,7 @@ export default function HeaderWrapper() {
         <div className="fixed top-0 left-0 z-99 h-fit border border-black p-4 mix-blend-difference">
           <Link
             href="/"
-            className={`${gralice.className} text-4xl text-white uppercase`}
+            className={`${gralice.className} text-3xl text-white uppercase xl:text-4xl`}
           >
             Avani Rai
           </Link>
