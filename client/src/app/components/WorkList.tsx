@@ -39,28 +39,14 @@ const WorkList = ({ data }: { data: FETCH_CATEGORY_PROJECTSResult }) => {
           tolerance: 100,
           preventDefault: true,
           onUp: () => {
-            if (isScrolling.current) return;
             if (activeIdxRef.current >= data.length - 1) return;
 
-            isScrolling.current = true;
-
             setActiveIdx((prev) => prev + 1);
-
-            setTimeout(() => {
-              isScrolling.current = false;
-            }, SCROLL_COOLDOWN);
           },
           onDown: () => {
-            if (isScrolling.current) return;
             if (activeIdxRef.current <= 0) return;
 
-            isScrolling.current = true;
-
             setActiveIdx((prev) => prev - 1);
-
-            setTimeout(() => {
-              isScrolling.current = false;
-            }, SCROLL_COOLDOWN);
           },
         });
 
