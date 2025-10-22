@@ -123,7 +123,7 @@ const Hero = ({
             target: window,
             type: "wheel,touch",
             wheelSpeed: -1,
-            tolerance: 10,
+            tolerance: 50,
             preventDefault: true,
             onWheel: (self) => {
               targetX += self.deltaY * speed;
@@ -223,10 +223,10 @@ const Hero = ({
   return (
     <div
       ref={heroContainerRef}
-      className="hero-container relative flex h-screen flex-col justify-between overflow-hidden [perspective:1000px]"
+      className="hero-container relative flex h-dvh flex-col justify-between overflow-hidden [perspective:1000px]"
     >
       <h1
-        className={`${gralice.className} avani-title-text absolute top-28 z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
+        className={`${gralice.className} avani-title-text absolute top-[14%] z-10 w-full text-center text-[20vw] leading-20 uppercase md:text-[16vw] xl:top-12 xl:left-6 xl:text-left xl:leading-50 2xl:top-20`}
       >
         Avani <span className="xl:hidden">Rai</span>
       </h1>
