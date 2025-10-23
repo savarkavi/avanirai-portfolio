@@ -148,7 +148,7 @@ const Hero = ({
             },
             onDrag: (self) => {
               const maxDeltaPerEvent = 100;
-              const touchMultiplier = 0.35;
+              const touchMultiplier = 0.6;
               const raw = (self.deltaX ?? 0) * touchMultiplier * 1.0;
               const delta = gsap.utils.clamp(
                 -maxDeltaPerEvent,
