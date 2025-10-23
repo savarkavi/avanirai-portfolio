@@ -147,7 +147,15 @@ const Hero = ({
               });
             },
             onDrag: (self) => {
-              targetX += self.deltaX * speed;
+              const maxDeltaPerEvent = 100;
+              const touchMultiplier = 0.35;
+              const raw = (self.deltaX ?? 0) * touchMultiplier * 1.0;
+              const delta = gsap.utils.clamp(
+                -maxDeltaPerEvent,
+                maxDeltaPerEvent,
+                raw,
+              );
+              targetX += delta;
 
               const rotationMultiplier = -0.25;
               const maxRotation = 15;
@@ -155,7 +163,7 @@ const Hero = ({
               const rotation = gsap.utils.clamp(
                 -maxRotation,
                 maxRotation,
-                self.deltaY * rotationMultiplier,
+                self.deltaX * rotationMultiplier,
               );
 
               gsap.to(images, {
