@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export default function HeaderWrapper() {
   const pathname = usePathname();
-  console.log(pathname);
 
   if (pathname === "/") {
     return <Header />;
