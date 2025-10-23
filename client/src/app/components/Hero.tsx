@@ -120,7 +120,8 @@ const Hero = ({
           gsap.ticker.add(updateAnimation);
 
           scrollObserver = Observer.create({
-            target: window,
+            target:
+              window.innerWidth >= 1280 ? window : imageContainerRef.current,
             type: "wheel,touch",
             wheelSpeed: -1,
             tolerance: 50,
@@ -145,7 +146,7 @@ const Hero = ({
                 overwrite: "auto",
               });
             },
-            onMove: (self) => {
+            onDrag: (self) => {
               targetX += self.deltaX * speed;
 
               const rotationMultiplier = -0.25;
@@ -368,7 +369,7 @@ const Hero = ({
         <p className="hidden xl:block">
           {activeIdx + 1} / {projects.length}
         </p>
-        <p className="text-sm">
+        <p className="text-[0.7rem]">
           See on{" "}
           <Link
             href={projects[activeIdx].instagramLink as Url}
