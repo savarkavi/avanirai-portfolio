@@ -9,7 +9,7 @@ const Page = () => {
         <Image src="/about.gif" alt="image" fill className="object-cover" />
       </div>
       <p
-        className={`${oldNewsPaper.className} absolute top-1/2 left-1/2 -translate-1/2 text-3xl text-white`}
+        className={`${oldNewsPaper.className} absolute top-1/2 left-1/2 -translate-1/2 text-white xl:text-3xl`}
       >
         Comming Soon
       </p>

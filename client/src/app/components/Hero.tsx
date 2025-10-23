@@ -377,7 +377,7 @@ const Hero = ({
         <p className="hidden xl:block">
           {activeIdx + 1} / {projects.length}
         </p>
-        <p className="text-[0.7rem]">
+        <p className="text-[0.7rem] xl:text-sm">
           See on{" "}
           <Link
             href={projects[activeIdx].instagramLink as Url}
