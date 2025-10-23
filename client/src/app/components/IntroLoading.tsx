@@ -50,7 +50,7 @@ const IntroLoading = ({ progress }: { progress: number }) => {
             </div>
           ))}
         </div>
-        <div className="absolute top-[62%] left-1/2 flex -translate-x-1/2 flex-col items-center gap-1">
+        <div className="absolute top-[65%] left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 xl:top-[62%]">
           <p>Avani Rai</p>
           <p>ਅਵਨੀ ਰਾਇ</p>
         </div>

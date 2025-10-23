@@ -18,7 +18,7 @@ const MenuOverlay = ({ isOpen, onOpen }: MenuOverlayProps) => {
   const { contextSafe } = useGSAP(() => {
     if (!isOpen) {
       gsap
-        .timeline()
+        .timeline({ defaults: { duration: 1 } })
         .to(".menu-item", {
           translateY: "5rem",
           stagger: -0.2,
@@ -83,7 +83,7 @@ const MenuOverlay = ({ isOpen, onOpen }: MenuOverlayProps) => {
                 {item.name}
               </p>
               <div
-                className={`menu-line-${i} absolute top-[35%] left-0 h-[3px] w-0 -translate-y-1/2 bg-black`}
+                className={`menu-line-${i} absolute top-[35%] left-0 hidden h-[3px] w-0 -translate-y-1/2 bg-black xl:block`}
               />
             </Link>
           ))}
